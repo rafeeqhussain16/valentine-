@@ -4,10 +4,135 @@
   <meta charset="UTF-8">
   <title>You Said Yes 💖</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: #ffffff;
+      font-family: Arial, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .content {
+      text-align: center;
+      position: relative;
+      z-index: 5;
+    }
+
+    h1 {
+      font-size: 40px;
+      color: #ff4d79;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 20px;
+      color: #555;
+    }
+
+    /* CONFETTI PIECES */
+    .confetti {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      opacity: 0.9;
+      animation: pop 2.5s ease-out forwards;
+    }
+
+    @keyframes pop {
+      0% {
+        transform: translate(0,0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(var(--x), var(--y)) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    /* HEARTS */
+    .heart {
+      position: absolute;
+      font-size: 20px;
+      animation: floatUp 4s ease-out forwards;
+      opacity: 0.9;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) scale(0.8);
+        opacity: 0;
+      }
+      30% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-120px) scale(1.2);
+        opacity: 0;
+      }
+    }
+  </style>
 </head>
 
-<body style="text-align:center; margin-top:100px; font-family:Arial;">
-  <h1>Yayyyyy!!🎉🎉🎉 !! You said YESS 💕</h1>
-  <p>love you joselin mary 🤌💗 ....tqsm for being my valentine!!</p>
+<body>
+
+  <div class="content" id="textBox">
+    <h1>Yayyy mwahhhh!!! 🎉🎉🎉
+         You said YESSSS !💕</h1>
+    <p>Thank you for being my valentine 👉👈💗 ...
+          i just love you so much 🫂🤌❤️!</p>
+  </div>
+
+  <script>
+    const box = document.getElementById("textBox");
+    const colors = ["#ff4d79", "#ffcc00", "#66ccff", "#66ff99", "#ff99cc"];
+    const hearts = ["❤️", "💖", "💕"];
+
+    function burst() {
+      const rect = box.getBoundingClientRect();
+      const x = rect.left + rect.width / 2;
+      const y = rect.top + rect.height / 2;
+
+      /* CONFETTI BURST */
+      for (let i = 0; i < 25; i++) {
+        const confetti = document.createElement("div");
+        confetti.className = "confetti";
+        confetti.style.backgroundColor =
+          colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.left = x + "px";
+        confetti.style.top = y + "px";
+
+        confetti.style.setProperty("--x", `${(Math.random() - 0.5) * 300}px`);
+        confetti.style.setProperty("--y", `${(Math.random() - 0.5) * 250}px`);
+
+        document.body.appendChild(confetti);
+        setTimeout(() => confetti.remove(), 2500);
+      }
+
+      /* HEARTS POP */
+      for (let i = 0; i < 6; i++) {
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        heart.innerText = hearts[Math.floor(Math.random() * hearts.length)];
+        heart.style.left = x + (Math.random() * 120 - 60) + "px";
+        heart.style.top = y + "px";
+        heart.style.fontSize = 18 + Math.random() * 18 + "px";
+
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 4000);
+      }
+    }
+
+    /* Natural timing (not robotic) */
+    burst();
+    setInterval(() => {
+      if (Math.random() > 0.3) burst();
+    }, 2200);
+  </script>
+
 </body>
 </html>
