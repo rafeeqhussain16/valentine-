@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Be My Valentine 💖</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 100px;
+      background-color: #ffffff;
+    }
+
+    h2 {
+      font-size: 26px;
+    }
+
+    button {
+      padding: 15px 30px;
+      font-size: 20px;
+      margin: 10px;
+      border: none;
+      cursor: pointer;
+      border-radius: 10px;
+    }
+
+    .yes-button {
+      background-color: #ff9eb5;
+    }
+
+    .no-button {
+      background-color: #dddddd;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Will you be my Valentine? 💖</h2>
+
+  <button class="yes-button" onclick="handleYesClick()">Yes</button>
+  <button class="no-button" onclick="handleNoClick()">No</button>
+
+  <script>
+    const messages = [
+      "Are you sure?",
+      "Please 🥺",
+      "Don’t say no 😭",
+      "I’ll be sad...",
+      "Last chance 😢"
+    ];
+
+    let messageIndex = 0;
+
+    function handleNoClick() {
+      const noButton = document.querySelector(".no-button");
+      const yesButton = document.querySelector(".yes-button");
+
+      noButton.textContent = messages[messageIndex];
+      messageIndex = (messageIndex + 1) % messages.length;
+
+      const size = parseFloat(
+        window.getComputedStyle(yesButton).fontSize
+      );
+      yesButton.style.fontSize = (size * 1.4) + "px";
+    }
+
+    function handleYesClick() {
+      window.location.href = "yes_page.html";
+    }
+  </script>
+
+</body>
+</html>
