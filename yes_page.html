@@ -40,6 +40,7 @@
       width: 8px;
       height: 8px;
       opacity: 0.9;
+      z-index: 1;
       animation: pop 2.5s ease-out forwards;
     }
 
@@ -60,6 +61,7 @@
       font-size: 20px;
       animation: floatUp 4s ease-out forwards;
       opacity: 0.9;
+      z-index: 1;
     }
 
     @keyframes floatUp {
@@ -71,10 +73,10 @@
         opacity: 1;
       }
       100% {
-        transform: translateY(-120px) scale(1.2);
-        opacity: 0;
-      }
-    }
+    transform: translate(var(--hx), var(--hy)) scale(1.2);
+    opacity: 0;
+  }
+}
   </style>
 </head>
 
@@ -82,9 +84,9 @@
 
   <div class="content" id="textBox">
     <h1>Yayyy mwahhhh!!! 🎉🎉🎉
-         You said YESSSS !💕</h1>
-    <p>Thank you for being my valentine 👉👈💗 ...
-          i just love you so much 🫂🤌❤️!</p>
+               You said YESSSS !💕</h1>
+    <p>Thank you for being my valentine 👉👈💗 ......
+           i just love you so much 🫂🤌❤️!</p>
   </div>
 
   <script>
@@ -94,9 +96,8 @@
 
     function burst() {
       const rect = box.getBoundingClientRect();
-      const x = rect.left + rect.width / 2;
-      const y = rect.top + rect.height / 2;
-
+      const x = rect.left + rect.width * (0.2 + Math.random() * 0.6);
+      const y = rect.top + rect.height * (0.2 + Math.random() * 0.6);
       /* CONFETTI BURST */
       for (let i = 0; i < 25; i++) {
         const confetti = document.createElement("div");
@@ -118,8 +119,11 @@
         const heart = document.createElement("div");
         heart.className = "heart";
         heart.innerText = hearts[Math.floor(Math.random() * hearts.length)];
-        heart.style.left = x + (Math.random() * 120 - 60) + "px";
-        heart.style.top = y + "px";
+        heart.style.left = x + "px";
+heart.style.top = y + "px";
+
+heart.style.setProperty("--hx", `${(Math.random() - 0.5) * 250}px`);
+heart.style.setProperty("--hy", `${(Math.random() - 0.5) * 250}px`);
         heart.style.fontSize = 18 + Math.random() * 18 + "px";
 
         document.body.appendChild(heart);
